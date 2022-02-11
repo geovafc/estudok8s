@@ -1,0 +1,29 @@
+apiVersion: apps/v1
+kind: ReplicaSet
+metadata: 
+  name: frontend-rs
+  labels: 
+    app: frontend
+spec:
+  #Template do pod que será replicado. A mesmas informações que estão no arquivo do pod
+  # que será criado as réplicas
+  template:
+    metadata: 
+      name: nginx-pod
+      labels: 
+        env: production
+    spec:
+      containers:
+        - name: nginx-container
+          image: nginx 
+  selector:
+    matchLabels:
+    # Dentre os pods existente no nosso cluster, eu quero fazer o match (criar duplicações)
+    # dos que tiver labels - env: production 
+      env: production
+  # Quantidade de réplicas que quero sempre manter
+  # Se já tiver algum pod sendo usado no ambiente, quando eu rodar o comando pra usar as 
+  # definições deste arquivo, o número de pods a mais que será criado no node será o 
+  # o número de pods desejado - número de pods existente. Ex: se já tem um pod, então 
+  # será criado somente mais 1. 
+  replicas: 2
