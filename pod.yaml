@@ -1,0 +1,15 @@
+# NÃO USAR TAB
+
+apiVersion: v1
+#Tipo de objeto que será criado. Pod, ReplicationController, ReplicaSet
+kind: Pod
+metadata:
+  name: nginx-3
+  labels:
+    app: nginx-3
+    type: frontend
+spec:
+  containers:
+    #Nome do container
+    - name: nginx-3
+      image: nginx
