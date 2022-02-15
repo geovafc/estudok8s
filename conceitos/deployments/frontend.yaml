@@ -1,0 +1,27 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata: 
+  name: frontend-dp
+  labels: 
+    app: frontend-app
+    type: frontend
+spec:
+  #Template do pod. 
+  template:
+    metadata: 
+      name: frontend-pod
+      labels: 
+        app: frontend-app
+        type: frontend
+    spec:
+      containers:
+        - name: frontend-container
+          image: nginx 
+# O deploy encapsula um replicaset e por isso ele é obrigatório neste arquivo. 
+  selector:
+    matchLabels:
+    # Dentre os pods existente no nosso cluster, eu quero fazer o match (criar réplicas)
+    # dos que tiver type frontend
+      type: frontend
+  # Quantidade de réplicas que quero sempre manter
+  replicas: 6

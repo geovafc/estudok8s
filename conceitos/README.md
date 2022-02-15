@@ -80,3 +80,56 @@ Kubectl
         CURRENT = quantidade de replicas dos pods em produção
         READY = quantidade de replicas dos pods prontas pra uso
         AGE = tempo de criação dos pods
+
+	Comando para verificar os detalhes do meu replicaset e também dos eventos que ocorreram nele
+
+		kubectl describe replicaset frontend-rs
+
+	Escalar os pods. Com isso o tráfego será direcionado para o 4 pods e a carga será 
+	balanceada, Escala Up. Se quiser fazer um escala Down é só diminuir o número de replicas. 
+		kubectl scale replicaset frontend-rs --replicas=4
+
+	Criação do deployments. O K8s vai identificar o tipo de objeto do arquivo 
+	e irá criar um deployment. O que vem depois de -f é o caminho para o arquivo de 
+	deployment.
+
+		kubectl create -f deployments/deployment.yaml 
+
+	Obter informações do deployments	
+
+		kubectl get deployment
+		NAME          READY   UP-TO-DATE   AVAILABLE   AGE
+		frontend-dp   3/3     3            3           2m29s
+
+		NAME = nome do deployment
+		READY = pods criados
+		UP-TO-DATE= atualizados
+		AVAILABLE = pod disponíveis
+
+
+	Obter tudo que estiver no meu cluster: pods, replicasets, deployment
+		
+		kubectl get all
+
+	Obter detalhes do deployment e os eventos. O que vem depois de deployment é o nome 
+	do objeto do deployment
+
+		kubectl describe deployment frontend-dp
+
+	Verificar status do deployment. Deployments depois de status não é o diretório
+	do arquivo de deployment.
+
+		kubectl rollout status deployments/frontend-dp
+
+	Deletar o deployment
+
+		kubectl delete deployment frontend-dp
+
+	Hisórico dos deployments pra saber as revisões criadas. 
+		kubectl rollout history deployment/frontend-dp
+
+		REVISION  CHANGE-CAUSE
+		1         <none>
+
+		REVISION= número da revisão do deployment
+		CHANGE-CAUSE= Causa da mudança. Pode ser informado no momento em que for fazer o deployment. Armazena o comando que foi usado pra fazer o deployment. 
