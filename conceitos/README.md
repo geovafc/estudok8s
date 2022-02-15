@@ -133,3 +133,10 @@ Kubectl
 
 		REVISION= número da revisão do deployment
 		CHANGE-CAUSE= Causa da mudança. Pode ser informado no momento em que for fazer o deployment. Armazena o comando que foi usado pra fazer o deployment. 
+
+	Aplicar atualizações feitas nos arquivos de definição. Quando esse comando for feito
+	para um arquivo de deploy, ele irá realizar a atualização do deploy dos pod. 
+	OBS: se um pode tiver sendo acessado pelos clientes da aplicação, ele não será 
+	atualizado até que fique ocioso, isso na estratégia rolleupdate.
+
+		kubectl apply -f deployments/frontend.yaml
